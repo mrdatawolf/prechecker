@@ -3,13 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/dropzone.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css" rel="stylesheet">
     <script src="//codeorigin.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
-    <title>Tracker10k</title>
+    <title>Prechecker</title>
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
@@ -83,13 +86,6 @@
 <div class="flex-center position-ref full-height">
     <div class="top-right links">
         <a href="{{ url('/') }}">Home</a>
-        <a href="{{ url('/clients') }}">Clients</a>
-        <a href="{{ url('/comics') }}">Comic Manager</a>
-        <a href="{{ url('/watchlists') }}">Watchlists</a>
-        <a href="{{ url('/orders') }}">Orders</a>
-        <a href="{{ url('/notes') }}">Notes</a>
-        <a href="{{ url('/groups') }}">Groups</a>
-        <a href="{{ url('/chart1') }}">Chart 1</a>
     </div>
     <div class="container">
         @if (Session::has('message'))
@@ -97,8 +93,22 @@
                 <p>{{ Session::get('message') }}</p>
             </div>
         @endif
+        <div id="getFile">
+            <h1>Get File</h1>
+            <form action="/dropzone/store" class="dropzone">
+                <div class="fallback">
+                    <input name="file" type="file" multiple/>
+                </div>
+            </form>
 
-        @yield('main')
+        </div>
+        <div id="setFileType">
+            <h2>Set the file type</h2>
+        </div>
+        <div id="progres">
+            <h4>Progress</h4>
+        </div>
+        {!! Form::hidden('csrf-token', csrf_token(), ['id' => 'csrf-token']) !!}
     </div>
 </div>
 @if (\Session::has('success'))
@@ -111,7 +121,6 @@
         <p>{{ \Session::get('error') }}</p>
     </div><br/>
 @endif
-@yield('scriptFooter')
 </body>
 
 </html>

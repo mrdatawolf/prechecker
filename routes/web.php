@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('start');
 });
+
+Route::get('dropzone', 'HomeController@dropzone');
+Route::post('dropzone/store', ['as' => 'dropzone.store', 'uses' => 'HomeController@dropzoneStore']);
